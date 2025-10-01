@@ -15,14 +15,8 @@ import {
 } from "@/components/ui/form";
 import Image from "next/image";
 import { signIn } from "next-auth/react";
-import { login } from "@/actions/auth";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-
-// type LoginFormValues = {
-//   email: string;
-//   password: string;
-// };
 
 export default function LoginForm() {
   const form = useForm<FieldValues>({
@@ -45,7 +39,7 @@ export default function LoginForm() {
 
       if (signInRes?.ok) {
         toast.success("Login successful!");
-        router.push(signInRes.url || "/dashboard");
+        router.push("/dashboard");
       } else {
         toast.error("Invalid credentials");
       }
