@@ -17,13 +17,6 @@ import { register } from "@/actions/auth";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
-// type RegisterFormValues = {
-//   name: string;
-//   email: string;
-//   phone: string;
-//   password: string;
-// };
-
 export default function RegisterForm() {
   const form = useForm<FieldValues>({
     defaultValues: {
@@ -47,11 +40,11 @@ export default function RegisterForm() {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-50">
+    <div className="flex justify-center items-center bg-gray-50">
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="space-y-6 w-full max-w-md bg-white p-8 rounded-lg shadow-md"
+          className="space-y-6 w-full max-w-md bg-white sm:p-8 rounded-lg"
         >
           <h2 className="text-3xl font-bold text-center">Register Now</h2>
           {/* Name */}

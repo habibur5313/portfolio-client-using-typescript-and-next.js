@@ -48,17 +48,17 @@ export default function LoginForm() {
     }
   };
 
-  const handleSocialLogin = (provider: "google" | "github") => {
-    console.log(`Login with ${provider}`);
-  };
+  // const handleSocialLogin = (provider: "google" | "github") => {
+  //   console.log(`Login with ${provider}`);
+  // };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-50">
-      <div className="space-y-6 w-full max-w-md bg-white p-8 rounded-lg shadow-md">
+    <div className="flex justify-center items-center bg-gray-50">
+      <div className="space-y-6 w-full max-w-md bg-white sm:p-8 rounded-lg">
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className="space-y-6 w-full max-w-md"
+            className="space-y-6 w-full "
           >
             <h2 className="text-3xl font-bold text-center">Login</h2>
 
@@ -116,7 +116,7 @@ export default function LoginForm() {
           <Button
             variant="outline"
             className="flex items-center justify-center gap-2"
-            onClick={() => handleSocialLogin("github")}
+            // onClick={() => handleSocialLogin("github")}
           >
             {/* GitHub */}
             <Image
@@ -132,11 +132,11 @@ export default function LoginForm() {
           <Button
             variant="outline"
             className="flex items-center justify-center gap-2"
-            onClick={() =>
-              signIn("google", {
-                callbackUrl: "/dashboard",
-              })
-            }
+            // onClick={() =>
+            //   signIn("google", {
+            //     callbackUrl: "/dashboard",
+            //   })
+            // }
           >
             {/* Google */}
             <Image
