@@ -1,5 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import BlogCard from "@/components/modules/Blogs/BlogCard";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "MD Habibur Rahman Blogs | Web Development & Projects",
+  description: "Read the latest blogs by MD Habibur Rahman on web development, MERN stack projects, Next.js tips, and full-stack programming insights.",
+};
+
 
 const AllBlogsPage = async () => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/post`, {

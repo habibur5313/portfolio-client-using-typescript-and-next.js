@@ -5,6 +5,12 @@ import Contact from "@/components/modules/contact/Contact";
 import Hero from "@/components/modules/Home/Hero";
 import ProjectCard from "@/components/modules/Projects/ProjectCard";
 import Skill from "@/components/modules/Skills/Skill";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "MD Habibur Rahman | Full-Stack Developer Portfolio",
+  description: "Explore the projects, blogs, and work of MD Habibur Rahman. A MERN stack developer specializing in React, Next.js, Node.js, and modern web development.",
+};
 
 export default async function HomePage() {
   const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/post`, {

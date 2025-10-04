@@ -1,6 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import ProjectCard from "@/components/modules/Projects/ProjectCard";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "MD Habibur Rahman Projects | Full-Stack Developer Portfolio",
+  description: "Explore the projects of MD Habibur Rahman, a full-stack developer specializing in MERN stack and Next.js. Discover web apps, portfolio work, and real-world coding projects.",
+};
+
 
 const AllProjectsPage = async () => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/project`, {

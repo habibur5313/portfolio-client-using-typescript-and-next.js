@@ -1,7 +1,14 @@
 import RegisterForm from "@/components/modules/Auth/RegisterForm";
 import { Logo } from "@/components/shared/Navbar/logo";
+import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "Register | MD Habibur Rahman Portfolio Dashboard",
+  description: "Create an account to access MD Habibur Rahman's portfolio dashboard. Sign up to manage projects, blogs, and users securely and efficiently.",
+};
+
 
 const RegisterPage = () => {
   return (
@@ -15,11 +22,6 @@ const RegisterPage = () => {
         className="object-cover"
         priority
       />
-        {/* <img
-          src="https://res.cloudinary.com/dcp9nk3bs/image/upload/v1759348363/19196943_ha5wb0.jpg"
-          alt="Portfolio Register Illustration"
-          className="absolute  h-full w-full object-cover"
-        /> */}
       </div>
 
       {/* Right Side - Form */}
