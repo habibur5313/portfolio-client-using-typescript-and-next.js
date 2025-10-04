@@ -55,6 +55,7 @@ export default function Skill() {
       { name: "React", icon: <SiReact className="text-cyan-400" /> },
       { name: "Redux", icon: <SiRedux className="text-purple-600" /> },
       { name: "Mongoose", icon: <SiMongodb className="text-green-600" /> },
+      { name: "Prisma", icon: <SiPrisma className="text-black" /> },
       { name: "Axios", icon: <SiAxios className="text-sky-600" /> },
       { name: "Swiper.js", icon: <SiSwiper className="text-pink-500" /> },
     ],
@@ -72,7 +73,6 @@ export default function Skill() {
     Database: [
       { name: "MongoDB", icon: <SiMongodb className="text-green-600" /> },
       { name: "PostgreSQL", icon: <SiPostgresql className="text-blue-800" /> },
-      { name: "Prisma", icon: <SiPrisma className="text-black" /> },
     ],
     Tools: [
       { name: "VS Code", icon: <VscVscode className="text-blue-500" /> },
