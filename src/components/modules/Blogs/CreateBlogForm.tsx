@@ -1,5 +1,5 @@
 "use client";
-import { create } from "@/actions/create";
+import { createBlog } from "@/actions/createBlog";
 import Form from "next/form";
 
 import { useState } from "react";
@@ -9,7 +9,7 @@ export default function CreateBlogForm() {
 
   return (
     <Form
-      action={create}
+      action={createBlog}
       className="max-w-4xl mx-auto p-6 bg-white shadow-md rounded-lg space-y-4 w-full"
     >
       <h2 className="text-xl font-semibold mb-4">Create Blog</h2>
@@ -24,6 +24,7 @@ export default function CreateBlogForm() {
           id="title"
           name="title"
           className="w-full rounded-md border px-3 py-2 focus:ring focus:ring-blue-200"
+          required
         />
       </div>
 
@@ -37,6 +38,7 @@ export default function CreateBlogForm() {
           name="content"
           rows={4}
           className="w-full rounded-md border px-3 py-2 focus:ring focus:ring-blue-200"
+          required
         />
       </div>
 

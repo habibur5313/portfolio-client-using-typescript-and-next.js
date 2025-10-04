@@ -4,7 +4,7 @@ import { getUserSession } from "@/helpers/getUserSession";
 import { revalidatePath, revalidateTag } from "next/cache";
 import { redirect } from "next/navigation";
 
-export const create = async (data: FormData) => {
+export const createBlog = async (data: FormData) => {
   const session = await getUserSession();
   const blogInfo = Object.fromEntries(data.entries());
   const modifiedData = {
@@ -30,7 +30,7 @@ export const create = async (data: FormData) => {
   if (result?.id) {
     revalidateTag("BLOGS");
     revalidatePath("/blogs");
-    redirect("/");
+    redirect("/blogs");
   }
   return result;
 };
