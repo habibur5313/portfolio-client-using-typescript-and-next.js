@@ -1,11 +1,12 @@
 "use client";
 
+import { IProject } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
 import { FaGithub, FaExternalLinkAlt, FaServer } from "react-icons/fa";
 
 interface ProjectProps {
-  project: any;
+  project: IProject;
 }
 
 export default function ProjectCard({ project }: ProjectProps) {

@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   description: "Manage all users in MD Habibur Rahman's portfolio dashboard. View, edit, and control access for contributors and registered users efficiently.",
 };
 
-import ManageAllUsersWrapper from "./ManageAllUsersWrapper";
+import ManageAllUsers from "@/components/modules/dashboard/ManageAllUsers";
 
 export default async function ManageUsersPage() {
   let users = [];
@@ -24,6 +24,6 @@ export default async function ManageUsersPage() {
   }
   
   // Pass fetched data to client component wrapper
-  return <ManageAllUsersWrapper users={users} />;
+  return <ManageAllUsers users={users} />;
 }
 

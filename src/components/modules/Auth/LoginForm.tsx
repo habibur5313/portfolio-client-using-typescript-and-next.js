@@ -35,7 +35,7 @@ export default function LoginForm() {
         callbackUrl: "/dashboard",
       });
 
-      console.log("clg from signinres", signInRes);
+
 
       if (signInRes?.ok) {
         toast.success("Login successful!");
@@ -49,7 +49,7 @@ export default function LoginForm() {
   };
 
   const handleSocialLogin = (provider: "google" | "github") => {
-    toast.error("please login with credentials")
+    toast.error(`${provider} login disabled. please login with credentials`)
   };
 
   return (

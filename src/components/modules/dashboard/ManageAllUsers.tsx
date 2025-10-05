@@ -13,17 +13,10 @@ import {
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-
-interface User {
-  id: string;
-  name: string;
-  email: string;
-  role: string;
-  isActive: "ACTIVE" | "BLOCKED";
-}
+import { IUser } from "@/types";
 
 interface ManageAllUsersProps {
-  users: User[];
+  users: IUser[];
 }
 
 const ManageAllUsers = ({ users: initialUsers }: ManageAllUsersProps) => {

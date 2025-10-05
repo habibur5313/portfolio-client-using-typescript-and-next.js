@@ -10,41 +10,12 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { IProject } from "@/types";
 import { Edit, Eye, Trash2 } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 
-export interface IAuthor {
-  id: number | string;
-  name: string;
-  email: string;
-  password?: string;
-  role: string;
-  createdAt?: string;
-  updatedAt?: string;
-}
 
-export interface IProject {
-  id: number | string;
-  projectName: string;
-  projectCategory: string;
-  description: string;
-  feature: string;
-  technologyUsed: string[];
-  npmPackageUsed: string[];
-  startDate: string; 
-  endDate: string; 
-  image: string;
-  githubLink: string;
-  githubLinkServer?: string;
-  liveLink: string;
-  isFeatured: boolean;
-  views: number;
-  authorId: number | string;
-  author: IAuthor;
-  createdAt: string;
-  updatedAt: string;
-}
 
 interface ManageAllProjectsProps {
   projects: IProject[];
@@ -52,7 +23,6 @@ interface ManageAllProjectsProps {
 
 export const ManageAllProjects = ({ projects }: ManageAllProjectsProps) => {
   const handleDelete = (id: string | number) => {
-    console.log(id);
   };
   return (
     <div className="w-full p-6 rounded-2xl shadow-md bg-white dark:bg-gray-900">
@@ -89,7 +59,7 @@ export const ManageAllProjects = ({ projects }: ManageAllProjectsProps) => {
                       <Eye className="w-4 h-4" />
                     </Button>
                   </Link>
-                  <Link href={`/dashboard/manage-projects/update-projects/${project.id}`}>
+                  <Link href={`/dashboard/manage-projects/update-project/${project.id}`}>
                     <Button
                       size="icon"
                       className="h-8 w-8 bg-yellow-100 text-yellow-600 hover:bg-yellow-200"

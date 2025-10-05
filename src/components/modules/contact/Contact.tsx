@@ -15,7 +15,6 @@ export default function Contact() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Form Submitted:", formData);
     alert("✅ Thank you for reaching out! I’ll get back to you soon.");
     setFormData({ name: "", email: "", message: "" });
   };

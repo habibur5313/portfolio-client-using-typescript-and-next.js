@@ -5,6 +5,11 @@ import { revalidatePath, revalidateTag } from "next/cache";
 import { redirect } from "next/navigation";
 import { toast } from "sonner";
 
+export interface IErrorResponse {
+  error: string; // error message like "Something went wrong"
+}
+
+
 /**
  * Handles project creation via FormData and posts it to external API.
  * Automatically revalidates cache & redirects after success.
@@ -48,7 +53,6 @@ export const createProject = async (formData: FormData) => {
       authorId: session.user.id,
     };
 
-    console.log(JSON.stringify(modifiedData));
     // ✅ 4. Send POST request to backend API
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_BASE_API}/project`,
@@ -64,7 +68,6 @@ export const createProject = async (formData: FormData) => {
     // ✅ 5. Parse and handle response
     const result = await response.json();
 
-    console.log(result);
 
     // ✅ 6. Revalidate & redirect if successful
      if (result?.id) {
@@ -75,12 +78,19 @@ export const createProject = async (formData: FormData) => {
     }
 
     return result;
-  } catch (error: any) {
-    // 🧠 Ignore Next.js redirect errors
-    if (error?.digest?.startsWith("NEXT_REDIRECT")) throw error;
+  } catch (error: unknown) {
+  // 🧠 Ignore Next.js redirect errors
+  if ((error as any)?.digest?.startsWith("NEXT_REDIRECT")) throw error;
 
-    console.error("❌ Error creating project:", error);
-    toast.error( error.message || "Something went wrong")
-    return { error: error.message || "Something went wrong" };
-  }
+  console.error("❌ Error creating project:", error);
+
+  const message =
+    error instanceof Error ? error.message : "Something went wrong";
+
+  toast.error(message);
+
+  const response: IErrorResponse = { error: message };
+  return response;
+}
+
 };

@@ -10,32 +10,11 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { IBlog } from "@/types";
 import { Edit, Eye, Trash2 } from "lucide-react";
 import Link from "next/link";
 
-export interface IAuthor {
-  id: number | string;
-  name: string;
-  email: string;
-  password?: string;
-  role: string;
-  createdAt?: string;
-  updatedAt?: string;
-}
 
-export interface IBlog {
-  id: number | string;
-  title: string;
-  content: string;
-  tags: string[];
-  thumbnail: string;
-  isFeatured: boolean;
-  views: number;
-  authorId: number | string;
-  author: IAuthor;
-  createdAt: string; 
-  updatedAt: string; 
-}
 
 interface ManageAllBlogsProps {
   blogs: IBlog[];
@@ -43,7 +22,6 @@ interface ManageAllBlogsProps {
 
 export const ManageAllBlogs = ({blogs} : ManageAllBlogsProps) => {
   const handleDelete = (id: string | number) => {
-    console.log(id);
   };
   return (
     <div className="w-full p-6 rounded-2xl shadow-md bg-white dark:bg-gray-900">
@@ -80,7 +58,7 @@ export const ManageAllBlogs = ({blogs} : ManageAllBlogsProps) => {
                       <Eye className="w-4 h-4" />
                     </Button>
                   </Link>
-                  <Link href={`/dashboard/manage-blogs/update-blogs/${blog.id}`}>
+                  <Link href={`/dashboard/manage-blogs/update-blog/${blog.id}`}>
                     <Button
                       size="icon"
                       className="h-8 w-8 bg-yellow-100 text-yellow-600 hover:bg-yellow-200"
