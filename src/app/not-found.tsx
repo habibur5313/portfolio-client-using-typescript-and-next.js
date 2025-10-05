@@ -2,12 +2,6 @@
 
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Metadata } from "next";
-
-export const metadata: Metadata = {
-  title: "Page Not Found | MD Habibur Rahman Portfolio",
-  description: "Oops! The page you're looking for does not exist. Return to MD Habibur Rahman's portfolio homepage or navigate to other sections of the site.",
-};
 
 
 export default function NotFoundPage() {

@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Register | MD Habibur Rahman Portfolio Dashboard",
+  title: "Register | MD Habibur Rahman Portfolio",
   description: "Create an account to access MD Habibur Rahman's portfolio dashboard. Sign up to manage projects, blogs, and users securely and efficiently.",
 };
 

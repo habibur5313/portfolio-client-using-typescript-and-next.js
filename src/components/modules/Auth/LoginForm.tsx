@@ -31,7 +31,7 @@ export default function LoginForm() {
     try {
       const signInRes = await signIn("credentials", {
         ...values,
-        redirect: false, // ✅ এটা দিলে আর reload হবে না
+        redirect: false,
         callbackUrl: "/dashboard",
       });
 
@@ -48,9 +48,9 @@ export default function LoginForm() {
     }
   };
 
-  // const handleSocialLogin = (provider: "google" | "github") => {
-  //   console.log(`Login with ${provider}`);
-  // };
+  const handleSocialLogin = (provider: "google" | "github") => {
+    toast.error("please login with credentials")
+  };
 
   return (
     <div className="flex justify-center items-center bg-gray-50">
@@ -116,7 +116,7 @@ export default function LoginForm() {
           <Button
             variant="outline"
             className="flex items-center justify-center gap-2"
-            // onClick={() => handleSocialLogin("github")}
+            onClick={() => handleSocialLogin("github")}
           >
             {/* GitHub */}
             <Image
@@ -137,6 +137,7 @@ export default function LoginForm() {
             //     callbackUrl: "/dashboard",
             //   })
             // }
+            onClick={() => handleSocialLogin("google")}
           >
             {/* Google */}
             <Image

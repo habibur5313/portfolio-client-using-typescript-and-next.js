@@ -2,12 +2,6 @@
 
 import { useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Metadata } from "next";
-
-export const metadata: Metadata = {
-  title: "Something went wrong | MD Habibur Rahman Portfolio",
-  description: "refresh",
-};
 
 
 export default function ErrorPage({
