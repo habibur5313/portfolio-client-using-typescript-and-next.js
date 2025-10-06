@@ -1,30 +1,31 @@
-// /* eslint-disable @typescript-eslint/no-explicit-any */
-// import BlogDetailsCard from "@/components/modules/Blogs/BlogDetailsCard";
-// import { getBlogById } from "@/services/PostServices";
-// import React from "react";
+import React from "react";
 
-// export const generateStaticParams = async () => {
-//   const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/post`);
-//   const { data: blogs } = await res.json();
+import { IProject } from "@/types";
+import { getProjectById } from "@/services/projectServices";
+import ProjectDetailsCard from "@/components/modules/Projects/ProjectDetailsCard";
 
-//   return blogs.slice(0, 2).map((blog: any) => ({
-//     blogId: String(blog.id),
-//   }));
-// };
+export const generateStaticParams = async () => {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/project`);
+  const { data: projects } = await res.json();
 
-// export const generateMetadata = async ({
-//   params,
-// }: {
-//   params: Promise<{ blogId: string }>;
-// }) => {
-//   const { blogId } = await params;
-//   const blog = await getBlogById(blogId);
+  return projects.slice(0, 2).map((project: IProject) => ({
+    projectId: String(project.id),
+  }));
+};
 
-//   return {
-//     title: blog?.title,
-//     description: blog?.content,
-//   };
-// };
+export const generateMetadata = async ({
+  params,
+}: {
+  params: Promise<{ projectId: string }>;
+}) => {
+  const { projectId } = await params;
+  const project = await getProjectById(projectId);
+
+  return {
+    title: project?.projectName,
+    description: project?.description,
+  };
+};
 
 const ProjectDetailsPage = async ({
   params,
@@ -32,14 +33,11 @@ const ProjectDetailsPage = async ({
   params: Promise<{ projectId: string }>;
 }) => {
   const { projectId } = await params;
+  const project = await getProjectById(projectId);
 
-  console.log(projectId)
+  console.log(project);
 
-  return (
-    <div className="py-30 px-4 max-w-7xl mx-auto">
-      ProjectDetailsCard
-    </div>
-  );
+  return <div className="py-30 px-4 max-w-7xl mx-auto"><ProjectDetailsCard project={project}></ProjectDetailsCard></div>;
 };
 
 export default ProjectDetailsPage;

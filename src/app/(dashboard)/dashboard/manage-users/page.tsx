@@ -6,17 +6,17 @@ export const metadata: Metadata = {
 };
 
 import ManageAllUsers from "@/components/modules/dashboard/ManageAllUsers";
+import { IUser } from "@/types";
 
 export default async function ManageUsersPage() {
-  let users = [];
+  
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/user`, {
+    cache: "no-store", 
+  });
+  
+  let users : IUser[] = []; 
 
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/user`, {
-      cache: "no-store", 
-    });
-
-    if (!res.ok) throw new Error("Failed to fetch users");
-
     const data = await res.json();
     users = data || [];
   } catch (error) {

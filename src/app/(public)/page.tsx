@@ -5,6 +5,7 @@ import Contact from "@/components/modules/contact/Contact";
 import Hero from "@/components/modules/Home/Hero";
 import ProjectCard from "@/components/modules/Projects/ProjectCard";
 import Skill from "@/components/modules/Skills/Skill";
+import { IBlog, IProject } from "@/types";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -45,12 +46,12 @@ export default async function HomePage() {
         ✨ Highlighted works that showcase my skills and creativity.
       </p>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 max-w-6xl mx-auto my-5">
-        {projects.slice(0, 3).map((project: any) => (
-          <ProjectCard key={project.id} project={project} />
+        {projects?.slice(0, 3).map((project: IProject) => (
+          <ProjectCard key={project?.id} project={project} />
         ))}
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 max-w-6xl mx-auto my-5">
-        {blogs.slice(0, 3).map((blog: any) => (
+        {blogs?.slice(0, 3).map((blog: IBlog) => (
           <BlogCard key={blog?.id} post={blog} />
         ))}
       </div>

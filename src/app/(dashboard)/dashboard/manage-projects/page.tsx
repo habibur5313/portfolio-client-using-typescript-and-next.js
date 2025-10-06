@@ -1,4 +1,5 @@
 import { ManageAllProjects } from "@/components/modules/dashboard/ManageAllProjects";
+import { IProject } from "@/types";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -8,20 +9,18 @@ export const metadata: Metadata = {
 };
 
 export default async function ManageProjectsPage () {
-  let projects = [];
 
-  try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/project`, {
       cache: "no-store",
     });
-
-    if (!res.ok) throw new Error("Failed to fetch projects");
-
-    const data = await res.json();
-    projects = data?.data || [];
-  } catch (error) {
-    console.error("Error fetching projects:", error);
-  }
+  
+    let projects: IProject[] = [];
+    try {
+      const json = await res.json();
+      projects = json.data || [];
+    } catch (err) {
+      console.error("Error parsing blogs JSON:", err);
+    }
 
   // Pass fetched data to client component wrapper
   return <ManageAllProjects projects={projects} />;

@@ -3,6 +3,7 @@ export interface IAuthor {
   name: string;
   email: string;
   password?: string;
+  picture?: string | null;
   role: string;
   createdAt?: string;
   updatedAt?: string;

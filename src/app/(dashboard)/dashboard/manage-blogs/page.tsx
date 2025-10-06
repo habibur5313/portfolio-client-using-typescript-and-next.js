@@ -1,4 +1,5 @@
 import { ManageAllBlogs } from "@/components/modules/dashboard/ManageAllBlogs";
+import { IBlog } from "@/types";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -8,19 +9,16 @@ export const metadata: Metadata = {
 };
 
 export default async function ManageBlogsPage() {
-  let blogs = [];
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/post`, {
+    cache: "no-store",
+  });
 
+  let blogs: IBlog[] = [];
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/post`, {
-      cache: "no-store",
-    });
-
-    if (!res.ok) throw new Error("Failed to fetch blogs");
-
-    const data = await res.json();
-    blogs = data?.data || [];
-  } catch (error) {
-    console.error("Error fetching blogs:", error);
+    const json = await res.json();
+    blogs = json.data || [];
+  } catch (err) {
+    console.error("Error parsing blogs JSON:", err);
   }
 
   // Pass fetched data to client component wrapper

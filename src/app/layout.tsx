@@ -16,9 +16,9 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "MD Habibur Rahman | Full-Stack Developer Portfolio",
-  description: "Explore the projects, blogs, and work of MD Habibur Rahman. A MERN stack developer specializing in React, Next.js, Node.js, and modern web development.",
+  description:
+    "Explore the projects, blogs, and work of MD Habibur Rahman. A MERN stack developer specializing in React, Next.js, Node.js, and modern web development.",
 };
-
 
 export default function RootLayout({
   children,
@@ -27,6 +27,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <link
+          rel="icon"
+          href="https://res.cloudinary.com/dcp9nk3bs/image/upload/v1759379841/6264726267194625010_121_oowq6n.jpg"
+          type="image/jpg"
+        />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
