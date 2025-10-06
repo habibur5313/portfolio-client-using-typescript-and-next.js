@@ -13,6 +13,8 @@ import {
 import { IBlog } from "@/types";
 import { Edit, Eye, Trash2 } from "lucide-react";
 import Link from "next/link";
+import { toast } from "sonner";
+import { deleteBlog } from "../Blogs/deleteBlog";
 
 
 
@@ -21,8 +23,18 @@ interface ManageAllBlogsProps {
 }
 
 export const ManageAllBlogs = ({blogs} : ManageAllBlogsProps) => {
-  const handleDelete = (id: string | number) => {
+
+  const handleDelete = async (id: string | number) => {
+    const confirmDelete = confirm("Are you sure you want to delete this post?");
+    if (!confirmDelete) return;
+try {
+      await deleteBlog(id);
+      toast.success("Blog deleted successfully!");
+    } catch (err) {
+      toast.error("Failed to delete Blog");
+    }
   };
+
   return (
     <div className="w-full p-6 rounded-2xl shadow-md bg-white dark:bg-gray-900">
       <h1 className="text-2xl font-semibold mb-6 text-gray-800 dark:text-gray-100">

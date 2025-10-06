@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -14,20 +14,28 @@ import { IProject } from "@/types";
 import { Edit, Eye, Trash2 } from "lucide-react";
 import Link from "next/link";
 import React from "react";
-
-
+import { toast } from "sonner";
+import { deleteProject } from "../Projects/deleteProject";
 
 interface ManageAllProjectsProps {
   projects: IProject[];
 }
 
 export const ManageAllProjects = ({ projects }: ManageAllProjectsProps) => {
-  const handleDelete = (id: string | number) => {
+  const handleDelete = async (id: string | number) => {
+    const confirmDelete = confirm("Are you sure you want to delete this post?");
+    if (!confirmDelete) return;
+    try {
+      await deleteProject(id);
+      toast.success("Project deleted successfully!");
+    } catch (err) {
+      toast.error("Failed to delete Project");
+    }
   };
   return (
     <div className="w-full p-6 rounded-2xl shadow-md bg-white dark:bg-gray-900">
       <h1 className="text-2xl font-semibold mb-6 text-gray-800 dark:text-gray-100">
-         Manage All Projects
+        Manage All Projects
       </h1>
 
       <Table>
@@ -59,7 +67,9 @@ export const ManageAllProjects = ({ projects }: ManageAllProjectsProps) => {
                       <Eye className="w-4 h-4" />
                     </Button>
                   </Link>
-                  <Link href={`/dashboard/manage-projects/update-project/${project.id}`}>
+                  <Link
+                    href={`/dashboard/manage-projects/update-project/${project.id}`}
+                  >
                     <Button
                       size="icon"
                       className="h-8 w-8 bg-yellow-100 text-yellow-600 hover:bg-yellow-200"
