@@ -20,9 +20,9 @@ export default function Footer() {
           {/* Left */}
           <div>
             <h2 className="text-white text-xl font-semibold mb-1">
-              Next level™
+              Habibur Rahman Portfolio
             </h2>
-            <p className="text-sm text-gray-400">Smart blog System</p>
+            <p className="text-sm text-gray-400">A simple personal portfolio</p>
           </div>
 
           {/* Center Nav */}
@@ -32,6 +32,9 @@ export default function Footer() {
             </Link>
             <Link href="/projects" className="hover:text-white transition-colors">
               Projects
+            </Link>
+            <Link href="/blogs" className="hover:text-white transition-colors">
+              blogs
             </Link>
             <Link href="/about" className="hover:text-white transition-colors">
               About
@@ -46,7 +49,7 @@ export default function Footer() {
 
           {/* Right */}
           <div className="text-sm text-gray-400">
-            © {currentYear} next level team. All rights reserved.
+            © {currentYear} Habibur Rahman. All rights reserved.
           </div>
         </div>
       </div>

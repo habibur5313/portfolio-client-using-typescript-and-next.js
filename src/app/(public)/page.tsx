@@ -6,6 +6,7 @@ import ProjectCard from "@/components/modules/Projects/ProjectCard";
 import Skill from "@/components/modules/Skills/Skill";
 import { IBlog, IProject } from "@/types";
 import { Metadata } from "next";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "MD Habibur Rahman | Full-Stack Developer Portfolio",
@@ -40,7 +41,7 @@ export default async function HomePage() {
       <section className=" bg-gray-50 px-6 pb-12 flex flex-col items-center">
         <Skill />
       </section>
-      <h2 className="text-center text-4xl pt-10">Featured Projects</h2>
+      <h2 className="text-center text-4xl pt-10">Featured <Link  className="text-blue-600" href="/projects">Projects</Link></h2>
       <p className="text-center text-gray-600 mt-2 mb-10 text-lg">
         ✨ Highlighted works that showcase my skills and creativity.
       </p>
@@ -49,7 +50,7 @@ export default async function HomePage() {
           <ProjectCard key={project?.id} project={project} />
         ))}
       </div>
-      <h2 className="text-center text-4xl pt-10">Featured Blogs</h2>
+      <h2 className="text-center text-4xl pt-10">Featured <Link  className="text-blue-600" href="/blogs">Blogs</Link> </h2>
       <p className="text-center text-gray-600 mt-2 mb-10 text-lg">
         ✨ Discover insights from my most impactful articles and tutorials..
       </p>
