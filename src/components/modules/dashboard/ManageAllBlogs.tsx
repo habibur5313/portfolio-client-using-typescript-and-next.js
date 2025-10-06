@@ -37,7 +37,7 @@ try {
 
   return (
     <div className="w-full p-6 rounded-2xl shadow-md bg-white dark:bg-gray-900">
-      <h1 className="text-2xl font-semibold mb-6 text-gray-800 dark:text-gray-100">
+      <h1 className="text-2xl font-semibold mb-6 text-gray-800 dark:text-gray-100 ml-12 md:ml-0">
          Manage All Blogs
       </h1>
 

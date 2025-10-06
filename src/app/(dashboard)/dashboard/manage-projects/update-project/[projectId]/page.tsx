@@ -1,17 +1,30 @@
+import UpdateProjectForm from "@/components/modules/Projects/UpdateProjectForm";
+import { getProjectById } from "@/services/projectServices";
+import React from "react";
+
+export const generateMetadata = async ({
+  params,
+}: {
+  params: Promise<{ projectId: string }>;
+}) => {
+  const { projectId } = await params;
+  const project = await getProjectById(projectId);
+
+  return {
+    title: project?.projectName,
+    description: project?.description,
+  };
+};
+
 const UpdateProjectPage = async ({
   params,
 }: {
-  params: Promise<{ blogId: string }>;
+  params: Promise<{ projectId: string }>;
 }) => {
-  const { blogId } = await params;
+  const { projectId } = await params;
+  const project = await getProjectById(projectId);
 
-  console.log(blogId)
-
-  return (
-    <div className="py-30 px-4 max-w-7xl mx-auto">
-      UpdateProjectPage
-    </div>
-  );
+  return <div className="w-full flex justify-center items-center"><UpdateProjectForm project={project}></UpdateProjectForm></div>;
 };
 
 export default UpdateProjectPage;

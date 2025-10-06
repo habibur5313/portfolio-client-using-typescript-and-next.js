@@ -2,27 +2,33 @@
 
 import { useState } from "react";
 import Form from "next/form";
-import { createProject } from "@/actions/createProject";
+import { updateProject } from "@/actions/updateProject";
+import { IProject } from "@/types";
 
-export default function CreateProjectForm() {
-  const [isFeatured, setIsFeatured] = useState("false");
+export default function UpdateProjectForm({ project }: { project: IProject }) {
+  const [isFeatured, setIsFeatured] = useState(
+    project?.isFeatured ? "true" : "false"
+  );
 
   return (
     <Form
-      action={createProject}
+      action={updateProject}
       className="max-w-4xl mx-auto p-6 bg-white shadow-md rounded-lg space-y-4 w-full"
     >
-      <h2 className="text-xl font-semibold mb-4 ml-12 md:ml-0">Create Project</h2>
+      <h2 className="text-xl font-semibold mb-4 ml-12 md:ml-0">
+        Update Project
+      </h2>
+
+      {/* Hidden ID field */}
+      <input type="hidden" name="id" value={project?.id} />
 
       {/* Project Name */}
       <div>
-        <label htmlFor="projectName" className="block text-sm font-medium mb-1">
-          Project Name
-        </label>
+        <label className="block text-sm font-medium mb-1">Project Name</label>
         <input
           type="text"
-          id="projectName"
           name="projectName"
+          defaultValue={project?.projectName}
           required
           className="w-full rounded-md border px-3 py-2 focus:ring focus:ring-blue-200"
         />
@@ -30,14 +36,13 @@ export default function CreateProjectForm() {
 
       {/* Project Category */}
       <div>
-        <label htmlFor="projectCategory" className="block text-sm font-medium mb-1">
+        <label className="block text-sm font-medium mb-1">
           Project Category
         </label>
         <input
           type="text"
-          id="projectCategory"
           name="projectCategory"
-          placeholder="Web App, E-commerce, Portfolio..."
+          defaultValue={project?.projectCategory}
           required
           className="w-full rounded-md border px-3 py-2 focus:ring focus:ring-blue-200"
         />
@@ -45,13 +50,11 @@ export default function CreateProjectForm() {
 
       {/* Description */}
       <div>
-        <label htmlFor="description" className="block text-sm font-medium mb-1">
-          Description
-        </label>
+        <label className="block text-sm font-medium mb-1">Description</label>
         <textarea
-          id="description"
           name="description"
           rows={4}
+          defaultValue={project?.description}
           required
           className="w-full rounded-md border px-3 py-2 focus:ring focus:ring-blue-200"
         />
@@ -59,13 +62,11 @@ export default function CreateProjectForm() {
 
       {/* Live Link */}
       <div>
-        <label htmlFor="liveLink" className="block text-sm font-medium mb-1">
-          Live Link
-        </label>
+        <label className="block text-sm font-medium mb-1">Live Link</label>
         <input
           type="url"
-          id="liveLink"
           name="liveLink"
+          defaultValue={project?.liveLink}
           required
           className="w-full rounded-md border px-3 py-2 focus:ring focus:ring-blue-200"
         />
@@ -74,26 +75,26 @@ export default function CreateProjectForm() {
       {/* GitHub Links */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
-          <label htmlFor="githubLink" className="block text-sm font-medium mb-1">
+          <label className="block text-sm font-medium mb-1">
             GitHub (Client)
           </label>
           <input
             type="url"
-            id="githubLink"
             name="githubLink"
+            defaultValue={project?.githubLink}
             required
             className="w-full rounded-md border px-3 py-2 focus:ring focus:ring-blue-200"
           />
         </div>
 
         <div>
-          <label htmlFor="githubLinkServer" className="block text-sm font-medium mb-1">
+          <label className="block text-sm font-medium mb-1">
             GitHub (Server)
           </label>
           <input
             type="url"
-            id="githubLinkServer"
             name="githubLinkServer"
+            defaultValue={project?.githubLinkServer || ""}
             className="w-full rounded-md border px-3 py-2 focus:ring focus:ring-blue-200"
           />
         </div>
@@ -101,13 +102,13 @@ export default function CreateProjectForm() {
 
       {/* Image */}
       <div>
-        <label htmlFor="image" className="block text-sm font-medium mb-1">
+        <label className="block text-sm font-medium mb-1">
           Project Image URL
         </label>
         <input
           type="url"
-          id="image"
           name="image"
+          defaultValue={project?.image}
           required
           className="w-full rounded-md border px-3 py-2 focus:ring focus:ring-blue-200"
         />
@@ -115,68 +116,59 @@ export default function CreateProjectForm() {
 
       {/* Feature */}
       <div>
-        <label htmlFor="feature" className="block text-sm font-medium mb-1">
-          Project Feature
-        </label>
+        <label className="block text-sm font-medium mb-1">Project Feature</label>
         <input
           type="text"
-          id="feature"
           name="feature"
-          placeholder="User Auth, Dashboard, API Integration"
+          defaultValue={project?.feature}
           className="w-full rounded-md border px-3 py-2 focus:ring focus:ring-blue-200"
         />
       </div>
 
-      {/* Technology Used */}
+      {/* Technologies */}
       <div>
-        <label htmlFor="technologyUsed" className="block text-sm font-medium mb-1">
-          Technologies Used (comma separated)
+        <label className="block text-sm font-medium mb-1">
+          Technologies Used
         </label>
         <input
           type="text"
-          id="technologyUsed"
           name="technologyUsed"
-          placeholder="React, Node.js, MongoDB, Tailwind"
+          defaultValue={project?.technologyUsed?.join(", ")}
           className="w-full rounded-md border px-3 py-2 focus:ring focus:ring-blue-200"
         />
       </div>
 
-      {/* NPM Packages Used */}
+      {/* NPM Packages */}
       <div>
-        <label htmlFor="npmPackageUsed" className="block text-sm font-medium mb-1">
-          NPM Packages Used (comma separated)
+        <label className="block text-sm font-medium mb-1">
+          NPM Packages Used
         </label>
         <input
           type="text"
-          id="npmPackageUsed"
           name="npmPackageUsed"
-          placeholder="axios, react-hook-form, zod"
+          defaultValue={project?.npmPackageUsed?.join(", ")}
           className="w-full rounded-md border px-3 py-2 focus:ring focus:ring-blue-200"
         />
       </div>
 
-      {/* Project Duration */}
+      {/* Duration */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
-          <label htmlFor="startDate" className="block text-sm font-medium mb-1">
-            Start Date
-          </label>
+          <label className="block text-sm font-medium mb-1">Start Date</label>
           <input
             type="date"
-            id="startDate"
             name="startDate"
+            defaultValue={project?.startDate?.split("T")[0]}
             required
             className="w-full rounded-md border px-3 py-2 focus:ring focus:ring-blue-200"
           />
         </div>
         <div>
-          <label htmlFor="endDate" className="block text-sm font-medium mb-1">
-            End Date
-          </label>
+          <label className="block text-sm font-medium mb-1">End Date</label>
           <input
             type="date"
-            id="endDate"
             name="endDate"
+            defaultValue={project?.endDate?.split("T")[0]}
             required
             className="w-full rounded-md border px-3 py-2 focus:ring focus:ring-blue-200"
           />
@@ -194,7 +186,6 @@ export default function CreateProjectForm() {
               value="true"
               checked={isFeatured === "true"}
               onChange={(e) => setIsFeatured(e.target.value)}
-              className="text-blue-600 focus:ring-blue-500"
             />
             Yes
           </label>
@@ -205,7 +196,6 @@ export default function CreateProjectForm() {
               value="false"
               checked={isFeatured === "false"}
               onChange={(e) => setIsFeatured(e.target.value)}
-              className="text-blue-600 focus:ring-blue-500"
             />
             No
           </label>
@@ -216,7 +206,7 @@ export default function CreateProjectForm() {
         type="submit"
         className="w-full bg-blue-600 text-white font-medium py-2 rounded-md hover:bg-blue-700 transition"
       >
-        Create Project
+        Update Project
       </button>
     </Form>
   );
