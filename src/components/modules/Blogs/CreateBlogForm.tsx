@@ -1,15 +1,32 @@
 "use client";
 import { createBlog } from "@/actions/createBlog";
 import Form from "next/form";
+import { redirect } from "next/navigation";
 
-import { useState } from "react";
+import { useState, useTransition } from "react";
+import { toast } from "sonner";
 
 export default function CreateBlogForm() {
   const [isFeatured, setIsFeatured] = useState("false");
+   const [isPending, startTransition] = useTransition();
+
+  const handleSubmit = async (formData: FormData) => {
+
+    startTransition(async () => {
+      const res = await createBlog(formData);
+
+      if (res.success) {
+        toast.success(res.message || "Blog Created successfully!");
+        redirect("/blogs");
+      } else {
+        toast.error(res.message || "Something went wrong!");
+      }
+    });
+  };
 
   return (
     <Form
-      action={createBlog}
+      action={handleSubmit}
       className="max-w-4xl mx-auto p-6 bg-white shadow-md rounded-lg space-y-4 w-full"
     >
       <h2 className="text-xl font-semibold mb-4 ml-12 md:ml-0">Create Blog</h2>
@@ -100,9 +117,10 @@ export default function CreateBlogForm() {
 
       <button
         type="submit"
+        disabled={isPending}
         className="w-full bg-blue-600 text-white font-medium py-2 rounded-md hover:bg-blue-700 transition"
       >
-        Submit
+        {isPending ? "Creating..." : "Create Blog"}
       </button>
     </Form>
   );

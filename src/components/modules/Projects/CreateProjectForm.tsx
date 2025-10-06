@@ -1,18 +1,36 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import Form from "next/form";
 import { createProject } from "@/actions/createProject";
+import { toast } from "sonner";
+import { redirect } from "next/navigation";
 
 export default function CreateProjectForm() {
   const [isFeatured, setIsFeatured] = useState("false");
+  const [isPending, startTransition] = useTransition();
+
+  const handleSubmit = async (formData: FormData) => {
+    startTransition(async () => {
+      const res = await createProject(formData);
+
+      if (res.success) {
+        toast.success(res.message || "Project updated successfully!");
+        redirect("/projects");
+      } else {
+        toast.error(res.message || "Something went wrong!");
+      }
+    });
+  };
 
   return (
     <Form
-      action={createProject}
+      action={handleSubmit}
       className="max-w-4xl mx-auto p-6 bg-white shadow-md rounded-lg space-y-4 w-full"
     >
-      <h2 className="text-xl font-semibold mb-4 ml-12 md:ml-0">Create Project</h2>
+      <h2 className="text-xl font-semibold mb-4 ml-12 md:ml-0">
+        Create Project
+      </h2>
 
       {/* Project Name */}
       <div>
@@ -30,7 +48,10 @@ export default function CreateProjectForm() {
 
       {/* Project Category */}
       <div>
-        <label htmlFor="projectCategory" className="block text-sm font-medium mb-1">
+        <label
+          htmlFor="projectCategory"
+          className="block text-sm font-medium mb-1"
+        >
           Project Category
         </label>
         <input
@@ -74,7 +95,10 @@ export default function CreateProjectForm() {
       {/* GitHub Links */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
-          <label htmlFor="githubLink" className="block text-sm font-medium mb-1">
+          <label
+            htmlFor="githubLink"
+            className="block text-sm font-medium mb-1"
+          >
             GitHub (Client)
           </label>
           <input
@@ -87,7 +111,10 @@ export default function CreateProjectForm() {
         </div>
 
         <div>
-          <label htmlFor="githubLinkServer" className="block text-sm font-medium mb-1">
+          <label
+            htmlFor="githubLinkServer"
+            className="block text-sm font-medium mb-1"
+          >
             GitHub (Server)
           </label>
           <input
@@ -129,7 +156,10 @@ export default function CreateProjectForm() {
 
       {/* Technology Used */}
       <div>
-        <label htmlFor="technologyUsed" className="block text-sm font-medium mb-1">
+        <label
+          htmlFor="technologyUsed"
+          className="block text-sm font-medium mb-1"
+        >
           Technologies Used (comma separated)
         </label>
         <input
@@ -143,7 +173,10 @@ export default function CreateProjectForm() {
 
       {/* NPM Packages Used */}
       <div>
-        <label htmlFor="npmPackageUsed" className="block text-sm font-medium mb-1">
+        <label
+          htmlFor="npmPackageUsed"
+          className="block text-sm font-medium mb-1"
+        >
           NPM Packages Used (comma separated)
         </label>
         <input
@@ -214,9 +247,10 @@ export default function CreateProjectForm() {
 
       <button
         type="submit"
+        disabled={isPending}
         className="w-full bg-blue-600 text-white font-medium py-2 rounded-md hover:bg-blue-700 transition"
       >
-        Create Project
+        {isPending ? "creating..." : "create Project"}
       </button>
     </Form>
   );

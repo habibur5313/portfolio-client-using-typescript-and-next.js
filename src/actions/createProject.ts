@@ -3,12 +3,6 @@
 
 import { getUserSession } from "@/helpers/getUserSession";
 import { revalidatePath, revalidateTag } from "next/cache";
-import { redirect } from "next/navigation";
-
-export interface IErrorResponse {
-  error: string; // error message like "Something went wrong"
-}
-
 
 /**
  * Handles project creation via FormData and posts it to external API.
@@ -49,46 +43,26 @@ export const createProject = async (formData: FormData) => {
             .split(",")
             .map((pkg) => pkg.trim())
         : [],
-      isFeatured: Boolean(projectInfo.isFeatured),
+      isFeatured: projectInfo.isFeatured === "true",
       authorId: session.user.id,
     };
 
     // ✅ 4. Send POST request to backend API
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_API}/project`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(modifiedData),
-      }
-    );
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/project`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(modifiedData),
+    });
 
-    // ✅ 5. Parse and handle response
-    const result = await response.json();
+    if (!res.ok) throw new Error("Failed to create project");
 
+    revalidateTag("PROJECTS");
+    revalidatePath("/projects");
 
-    // ✅ 6. Revalidate & redirect if successful
-     if (result?.id) {
-      // ✅ Revalidate cache and safely redirect
-      revalidateTag("PROJECTS");
-      revalidatePath("/projects");
-      return redirect("/projects"); // Important: return, not just call
-    }
-
-    return result;
-  } catch (error: unknown) {
-  // 🧠 Ignore Next.js redirect errors
-  if ((error as any)?.digest?.startsWith("NEXT_REDIRECT")) throw error;
-
-  console.error("❌ Error creating project:", error);
-
-  const message =
-    error instanceof Error ? error.message : "Something went wrong";
-
-  const response: IErrorResponse = { error: message };
-  return response;
-}
-
+    return { success: true, message: "Project created successfully!" };
+  } catch (err: any) {
+    return { success: false, message: err.message || "Something went wrong" };
+  }
 };

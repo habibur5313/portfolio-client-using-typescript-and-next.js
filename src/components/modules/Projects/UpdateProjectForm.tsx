@@ -225,7 +225,7 @@ export default function UpdateProjectForm({ project }: { project: IProject }) {
         disabled={isPending}
         className="w-full bg-blue-600 text-white font-medium py-2 rounded-md hover:bg-blue-700 transition"
       >
-        {isPending ? "Updating..." : "Update Blog"}
+        {isPending ? "Updating..." : "Update Project"}
       </button>
     </Form>
   );

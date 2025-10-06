@@ -1,10 +1,11 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use server";
 
 import { getUserSession } from "@/helpers/getUserSession";
 import { revalidatePath, revalidateTag } from "next/cache";
-import { redirect } from "next/navigation";
 
 export const createBlog = async (data: FormData) => {
+  try{
   const session = await getUserSession();
   const blogInfo = Object.fromEntries(data.entries());
   const modifiedData = {
@@ -13,8 +14,8 @@ export const createBlog = async (data: FormData) => {
       .toString()
       .split(",")
       .map((tag) => tag.trim()),
+      isFeatured: blogInfo.isFeatured === "true",
     authorId: session?.user?.id,
-    isFeatured: Boolean(blogInfo.isFeatured),
   };
 
   const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/post`, {
@@ -25,12 +26,13 @@ export const createBlog = async (data: FormData) => {
     body: JSON.stringify(modifiedData),
   });
 
-  const result = await res.json();
+  if (!res.ok) throw new Error("Failed to create blog");
 
-  if (result?.id) {
     revalidateTag("BLOGS");
     revalidatePath("/blogs");
-    redirect("/blogs");
+
+    return { success: true, message: "Blog created successfully!" };
+  } catch (err: any) {
+    return { success: false, message: err.message || "Something went wrong" };
   }
-  return result;
 };
