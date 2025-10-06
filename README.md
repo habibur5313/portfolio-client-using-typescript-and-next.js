@@ -114,7 +114,7 @@ Password: Admin123#
 
 - After logging in, you can add or edit blogs and projects from the dashboard.  
 - Public pages are accessible without login.
-```
+
 ---
 
 ## 🌐 API
