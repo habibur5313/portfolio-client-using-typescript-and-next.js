@@ -1,9 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use server";
 
 import { getUserSession } from "@/helpers/getUserSession";
 import { revalidatePath, revalidateTag } from "next/cache";
 import { redirect } from "next/navigation";
-import { toast } from "sonner";
 
 export interface IErrorResponse {
   error: string; // error message like "Something went wrong"
@@ -86,8 +86,6 @@ export const createProject = async (formData: FormData) => {
 
   const message =
     error instanceof Error ? error.message : "Something went wrong";
-
-  toast.error(message);
 
   const response: IErrorResponse = { error: message };
   return response;

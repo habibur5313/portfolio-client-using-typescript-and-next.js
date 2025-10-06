@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import About from "@/components/modules/About/About";
 import BlogCard from "@/components/modules/Blogs/BlogCard";
 import Contact from "@/components/modules/contact/Contact";

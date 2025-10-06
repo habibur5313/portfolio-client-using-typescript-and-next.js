@@ -1,18 +1,34 @@
 "use client";
 
-import { useState } from "react";
+import { startTransition, useState, useTransition } from "react";
 import Form from "next/form";
 import { updateProject } from "@/actions/updateProject";
 import { IProject } from "@/types";
+import { toast } from "sonner";
+import { redirect } from "next/navigation";
 
 export default function UpdateProjectForm({ project }: { project: IProject }) {
   const [isFeatured, setIsFeatured] = useState(
     project?.isFeatured ? "true" : "false"
   );
+  const [isPending, startTransition] = useTransition();
+
+  const handleSubmit = async (formData: FormData) => {
+    startTransition(async () => {
+      const res = await updateProject(formData);
+
+      if (res.success) {
+        toast.success(res.message || "Project updated successfully!");
+        redirect("/dashboard/manage-projects");
+      } else {
+        toast.error(res.message || "Something went wrong!");
+      }
+    });
+  };
 
   return (
     <Form
-      action={updateProject}
+      action={handleSubmit}
       className="max-w-4xl mx-auto p-6 bg-white shadow-md rounded-lg space-y-4 w-full"
     >
       <h2 className="text-xl font-semibold mb-4 ml-12 md:ml-0">
@@ -116,7 +132,9 @@ export default function UpdateProjectForm({ project }: { project: IProject }) {
 
       {/* Feature */}
       <div>
-        <label className="block text-sm font-medium mb-1">Project Feature</label>
+        <label className="block text-sm font-medium mb-1">
+          Project Feature
+        </label>
         <input
           type="text"
           name="feature"
@@ -204,9 +222,10 @@ export default function UpdateProjectForm({ project }: { project: IProject }) {
 
       <button
         type="submit"
+        disabled={isPending}
         className="w-full bg-blue-600 text-white font-medium py-2 rounded-md hover:bg-blue-700 transition"
       >
-        Update Project
+        {isPending ? "Updating..." : "Update Blog"}
       </button>
     </Form>
   );

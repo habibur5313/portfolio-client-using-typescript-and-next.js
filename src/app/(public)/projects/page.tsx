@@ -1,6 +1,5 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 import ProjectCard from "@/components/modules/Projects/ProjectCard";
+import { IProject } from "@/types";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -14,7 +13,7 @@ const AllProjectsPage = async () => {
     cache: "no-store",
   });
 
-  let projects: any[] = [];
+  let projects: IProject[] = [];
   try {
     const json = await res.json();
     projects = json.data || [];
@@ -29,7 +28,7 @@ const AllProjectsPage = async () => {
         ✨ All Projects I’ve built with love and code
       </p>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mx-auto max-w-6xl my-5">
-        {projects.map((project: any) => (
+        {projects.map((project: IProject) => (
           <ProjectCard key={project.id} project={project} />
         ))}
       </div>

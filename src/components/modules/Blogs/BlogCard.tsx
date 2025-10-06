@@ -1,8 +1,8 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import Link from "next/link";
 import Image from "next/image";
+import { IBlog } from "@/types";
 
-export default function BlogCard({ post }: { post: any }) {
+export default function BlogCard({ post }: { post: IBlog }) {
   return (
     <Link
       href={`/blogs/${post.id}`}
@@ -47,7 +47,7 @@ export default function BlogCard({ post }: { post: any }) {
               />
               <span className="text-gray-600 dark:text-gray-300 text-sm flex items-center gap-1">
                 {post.author.name}
-                {post.author.isVerified && (
+                {post.author && (
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="h-4 w-4 text-blue-500"

@@ -1,13 +1,13 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import BlogDetailsCard from "@/components/modules/Blogs/BlogDetailsCard";
+import UpdateBlogForm from "@/components/modules/Blogs/UpdateBlogForm";
 import { getBlogById } from "@/services/PostServices";
+import { IBlog } from "@/types";
 import React from "react";
 
 export const generateStaticParams = async () => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/post`);
   const { data: blogs } = await res.json();
 
-  return blogs.slice(0, 2).map((blog: any) => ({
+  return blogs.slice(0, 2).map((blog: IBlog) => ({
     blogId: String(blog.id),
   }));
 };
@@ -36,8 +36,8 @@ const BlogDetailsPage = async ({
   const blog = await getBlogById(blogId);
 
   return (
-    <div className="py-30 px-4 max-w-7xl mx-auto">
-      <BlogDetailsCard blog={blog} />
+    <div className="w-full flex justify-center items-center">
+      <UpdateBlogForm blog={blog} />
     </div>
   );
 };

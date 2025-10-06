@@ -1,37 +1,43 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use server";
 
 import { getUserSession } from "@/helpers/getUserSession";
-import { revalidatePath, revalidateTag } from "next/cache";
-import { redirect } from "next/navigation";
+import { revalidateTag, revalidatePath } from "next/cache";
 
-export const updateBlog = async (data: FormData) => {
-  const session = await getUserSession();
-  const blogInfo = Object.fromEntries(data.entries());
-  const blogId = blogInfo.id;
-  const modifiedData = {
-    ...blogInfo,
-    tags: blogInfo.tags
-      .toString()
-      .split(",")
-      .map((tag) => tag.trim()),
-    authorId: session?.user?.id,
-    isFeatured: Boolean(blogInfo.isFeatured),
-  };
+export const updateBlog = async (formData: FormData) => {
+  try {
+    const session = await getUserSession();
+    if (!session?.user?.id) {
+      throw new Error("Unauthorized — user not logged in");
+    }
 
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/post/:${blogId}`, {
-    method: "PATCH",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(modifiedData),
-  });
+    const blogInfo = Object.fromEntries(formData.entries());
+    const blogId = blogInfo.id || blogInfo.blogId;
 
-  const result = await res.json();
+    const modifiedData = {
+      title: blogInfo.title,
+      content: blogInfo.content,
+      thumbnail: blogInfo.thumbnail,
+      tags: blogInfo.tags
+        ? blogInfo.tags.toString().split(",").map((t) => t.trim())
+        : [],
+      isFeatured: Boolean(blogInfo.isFeatured),
+      authorId: session.user.id,
+    };
 
-  if (result?.id) {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/post/${blogId}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(modifiedData),
+    });
+
+    if (!res.ok) throw new Error("Failed to update blog");
+
     revalidateTag("BLOGS");
-    revalidatePath("/blogs");
-    redirect("/blogs");
+    revalidatePath("/dashboard/manage-blogs");
+
+    return { success: true, message: "Blog updated successfully!" };
+  } catch (err: any) {
+    return { success: false, message: err.message || "Something went wrong" };
   }
-  return result;
 };

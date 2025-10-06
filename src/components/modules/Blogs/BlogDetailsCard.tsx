@@ -1,7 +1,7 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+import { IBlog } from "@/types";
 import Image from "next/image";
 
-export default async function BlogDetailsCard({ blog }: { blog: any }) {
+export default async function BlogDetailsCard({ blog }: { blog: IBlog }) {
   if (!blog) {
     return (
       <div className="py-20 text-center text-gray-500">Blog not found.</div>
@@ -25,10 +25,8 @@ export default async function BlogDetailsCard({ blog }: { blog: any }) {
         />
         <div>
           <p className="font-semibold">
-            {blog.author.name}{" "}
-            {blog.author.isVerified && (
-              <span className="inline-block ml-1 text-blue-500">✔</span>
-            )}
+            {blog.author.name}
+            <span className="inline-block ml-1 text-blue-500">✔</span>
           </p>
           <p className="text-gray-500 text-sm">
             {new Date(blog.createdAt).toLocaleDateString()} • {blog.views} views
