@@ -21,7 +21,7 @@ export const updateBlog = async (formData: FormData) => {
       tags: blogInfo.tags
         ? blogInfo.tags.toString().split(",").map((t) => t.trim())
         : [],
-      isFeatured: Boolean(blogInfo.isFeatured),
+      isFeatured: blogInfo.isFeatured === "true",
       authorId: session.user.id,
     };
 

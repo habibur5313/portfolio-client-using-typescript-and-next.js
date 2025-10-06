@@ -45,9 +45,11 @@ export const updateProject = async (formData: FormData) => {
         : [],
       startDate: projectInfo.startDate,
       endDate: projectInfo.endDate,
-      isFeatured: Boolean(projectInfo.isFeatured),
+      isFeatured: projectInfo.isFeatured === "true",
       authorId: session.user.id, 
     };
+
+    console.log(modifiedData)
 
     // console.log(JSON.stringify(modifiedData))
 

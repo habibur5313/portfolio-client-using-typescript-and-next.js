@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 };
 
 export default async function HomePage() {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/post`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/post?isFeatured=true`, {
     next: {
       tags: ["BLOGS"],
     },
@@ -22,7 +22,7 @@ export default async function HomePage() {
   const { data: blogs } = await res.json();
 
   const projectRes = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_API}/project`,
+    `${process.env.NEXT_PUBLIC_BASE_API}/project?isFeatured=true`,
     {
       next: {
         tags: ["PROJECTS"],
@@ -49,6 +49,10 @@ export default async function HomePage() {
           <ProjectCard key={project?.id} project={project} />
         ))}
       </div>
+      <h2 className="text-center text-4xl pt-10">Featured Blogs</h2>
+      <p className="text-center text-gray-600 mt-2 mb-10 text-lg">
+        ✨ Discover insights from my most impactful articles and tutorials..
+      </p>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 max-w-6xl mx-auto my-5">
         {blogs?.slice(0, 3).map((blog: IBlog) => (
           <BlogCard key={blog?.id} post={blog} />

@@ -27,6 +27,7 @@ const AllProjectsPage = async () => {
       <p className="text-center text-gray-600 mt-2 mb-10 text-lg">
         ✨ All Projects I’ve built with love and code
       </p>
+      
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mx-auto max-w-6xl my-5">
         {projects.map((project: IProject) => (
           <ProjectCard key={project.id} project={project} />
