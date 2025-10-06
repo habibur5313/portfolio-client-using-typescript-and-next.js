@@ -96,7 +96,7 @@ npm install
 npm run dev
 ```
 
-> Make sure to set up your `.env` file for database connection and JWT secret.
+> Make sure to set up your `.env` file for database connection.
 
 ---
 
@@ -115,21 +115,6 @@ Password: Admin123#
 - After logging in, you can add or edit blogs and projects from the dashboard.  
 - Public pages are accessible without login.
 ```
-
-And you can also add a note in **Authentication** for clarity:
-
-````markdown
-### Private Pages (Owner Only)
-- **JWT-based Authentication:**  
-  - Admin login only for the portfolio owner.  
-  - Default credentials for testing:  
-    ```
-    Email: admin@example.com
-    Password: Admin123#
-    ```
-  - Passwords are securely hashed with bcrypt.
-````
-
 ---
 
 ## 🌐 API
@@ -167,5 +152,3 @@ Base URL: [https://portfolio-serverr-sigma.vercel.app](https://portfolio-serverr
 ---
 
 ⭐ **Thank you for checking out my portfolio!**
-
-```
